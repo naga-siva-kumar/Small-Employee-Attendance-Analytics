@@ -1,4 +1,4 @@
-# DECISIONS.md  (about 150-200 words in total - plain language, your own words)
+# DECISIONS.md 
 
 1. **Indexes.** I created a unique index on `employees.emp_code` (enforces no-duplicate creates atomically), a unique compound index on `attendance_logs(emp_code, date)` (enforces one record per employee per day and prevents concurrent duplicate punch-ins), a compound index on `attendance_logs(date desc, emp_code asc)` (serves the list-attendance sort and analytics date-range queries), and indexes on `employees.department` and `employees.joined_on` for look-ups and headcount filters. I considered a separate index on `attendance_logs.status` but rejected it because status is low-cardinality and the date+emp_code indexes cover the filtered queries well enough.
 
